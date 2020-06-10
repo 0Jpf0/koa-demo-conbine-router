@@ -22,7 +22,7 @@ class loginController {
         }
         if (!checkUserPassword) {
           ctx.body = {
-            code: "500",
+            code: 500,
             msg: "用户名或密码错误",
           };
         } else {
@@ -37,14 +37,14 @@ class loginController {
         }
       } else {
         ctx.body = {
-          code: "500",
+          code: 500,
           msg: "该用户不存在",
         };
       }
     } else {
       ctx.body = {
         code: 401,
-        token: "图形验证码不正确",
+        msg: "图形验证码不正确",
       };
     }
   }

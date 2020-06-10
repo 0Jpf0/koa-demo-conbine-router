@@ -9,30 +9,36 @@ class loginController {
     let { body } = ctx.request;
     let sid = body.sid;
     let code = body.code;
-    if (checkCode(sid, code)) {
-      console.log("check ok");
+    if (await checkCode(sid, code)) {
       let checkUserPassword;
       let user = await User.findOne({
         username: body.username,
       });
-      if (user.password === body.password) {
-        checkUserPassword = true;
+      if (user != null) {
+        if (user.password === body.password) {
+          checkUserPassword = true;
+        } else {
+          checkUserPassword = false;
+        }
+        if (!checkUserPassword) {
+          ctx.body = {
+            code: "500",
+            msg: "用户名或密码错误",
+          };
+        } else {
+          let token = jsonwentoken.sign(
+            { _id: "pxm", exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24) },
+            config.JWT_SECRET
+          );
+          ctx.body = {
+            code: 200,
+            token: token,
+          };
+        }
       } else {
-        checkUserPassword = false;
-      }
-      if (checkUserPassword) {
-        let token = jsonwentoken.sign(
-          { _id: "pxm", exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24) },
-          config.JWT_SECRET
-        );
         ctx.body = {
-          code: "404",
-          msg: "用户名或密码错误",
-        };
-      } else {
-        ctx.body = {
-          code: 200,
-          token: token,
+          code: "500",
+          msg: "该用户不存在",
         };
       }
     } else {

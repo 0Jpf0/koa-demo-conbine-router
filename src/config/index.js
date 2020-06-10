@@ -1,4 +1,4 @@
-const DB_URL = "mongodb://root:123456@10.6.65.219:8024/pxm";
+const DB_URL = "mongodb://root:123456@10.6.65.219:8024/pxm?authSource=admin";
 const REDIS = {
   host: "10.6.65.219",
   port: 15001,

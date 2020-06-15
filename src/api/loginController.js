@@ -89,6 +89,7 @@ class loginController {
           data: result,
           msg: "注册成功",
         };
+        return;
       }
     } else {
       msg.code = ["图形验证码已失效，请重新输入"];

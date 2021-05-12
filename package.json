@@ -34,7 +34,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.18",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "nodemon": "^2.0.1",
     "redis": "^3.0.2",
     "svg-captcha": "^1.4.0"
